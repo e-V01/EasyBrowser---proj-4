@@ -12,6 +12,7 @@ import UIKit
 class ViewController: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
     var progressView: UIProgressView!
+    var website = ["apple.com", "hackingwithswift.com "]
     
     override func loadView() {
         webView = WKWebView()
@@ -36,7 +37,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         //
 
-        let url = URL(string: "https://www.hackingwithswift.com")!
+        let url = URL(string: "https://" + website[0])!
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
     }
@@ -45,7 +46,9 @@ class ViewController: UIViewController, WKNavigationDelegate {
     @objc func openTapped() {
         let ac = UIAlertController(title: "Open page...", message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "apple.com", style: .default, handler: openPage))
-        ac.addAction(UIAlertAction(title: "https://www.hackingwithswift.com", style: .default, handler: openPage))
+        for websites in website {
+            ac.addAction(UIAlertAction(title: websites, style: .default, handler: openPage))
+        }
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         ac.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(ac, animated: true)
@@ -65,6 +68,19 @@ class ViewController: UIViewController, WKNavigationDelegate {
         if keyPath == "estimatedProgress" {
             progressView.progress = Float(webView.estimatedProgress)
         }
+    }
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let url = navigationAction.request.url
+        
+        if let host = url?.host { // to unwrap optional value with if
+            for websites in website { // loop via safe websties
+                if host.contains(websites) { // respond with positive response, has prefix would fail
+                    decisionHandler(.allow)
+                    return
+                }
+            }
+        }
+        decisionHandler(.cancel) // negative resposnse
     }
 }
 
