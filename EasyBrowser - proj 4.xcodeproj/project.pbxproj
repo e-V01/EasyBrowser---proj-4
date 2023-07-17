@@ -24,6 +24,7 @@
 		9E5D8D292A652BB4007F1E4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E5D8D2C2A652BB4007F1E4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E5D8D2E2A652BB4007F1E4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E5D8D342A654346007F1E4A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +57,7 @@
 		9E5D8D1F2A652BB3007F1E4A /* EasyBrowser - proj 4 */ = {
 			isa = PBXGroup;
 			children = (
+				9E5D8D342A654346007F1E4A /* README.md */,
 				9E5D8D202A652BB3007F1E4A /* AppDelegate.swift */,
 				9E5D8D222A652BB3007F1E4A /* SceneDelegate.swift */,
 				9E5D8D242A652BB3007F1E4A /* ViewController.swift */,
