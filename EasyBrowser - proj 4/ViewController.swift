@@ -40,6 +40,13 @@ class ViewController: UIViewController, WKNavigationDelegate {
         let url = URL(string: "https://" + website[0])!
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
+        
+        
+        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: webView, action: #selector(webView.goBack))
+        let forwardButton = UIBarButtonItem(title: "Forward", style: .plain, target: webView, action: #selector(webView.goForward))
+        
+        toolbarItems?.insert(contentsOf: [backButton, forwardButton], at: 0) // extra task
+
     }
 
     
@@ -70,6 +77,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         }
     }
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
         let url = navigationAction.request.url
         
         if let host = url?.host { // to unwrap optional value with if
@@ -80,6 +88,11 @@ class ViewController: UIViewController, WKNavigationDelegate {
                 }
             }
         }
+        // If the URL is blocked, show an alert (extra task)
+        let alertController = UIAlertController(title: "Blocked", message: "Website is blocked", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alertController, animated: true)
+        
         decisionHandler(.cancel) // negative resposnse
     }
 }
